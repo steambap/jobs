@@ -4,6 +4,9 @@
 
 智联是一个神奇的网站，有的地方登录要验证码，有的地方又不需要，页面加载也比别人慢一些。。。
 
+所以第一点就是必须从百度搜索的链接进入页面，地址是：
+http://ts.zhaopin.com/jump/index_new.html?sid=121113803&site=pzzhubiaoti1
+
 代码上的话，就只有一点比较神奇，就是如果登录后的弹窗不关掉，页面上的 a 标签居然不可点。
 ```JavaScript
 	await page.click('.Delivery_success_popdiv_title span.fr').catch(() => {});
