@@ -1,25 +1,25 @@
 package main
 
 import (
-	"io"
 	"encoding/json"
-	"io/ioutil"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"time"
 )
 
 type CNodeTopic struct {
-	Title string `json:"title"`
+	Title    string    `json:"title"`
 	CreateAt time.Time `json:"create_at"`
-	Content string `json:"content"`
+	Content  string    `json:"content"`
 }
 
 type CNodeResp struct {
-	Success bool `json:"success"`
-	Data []CNodeTopic `json:"data"`
+	Success bool         `json:"success"`
+	Data    []CNodeTopic `json:"data"`
 }
 
-type CNodeJSON struct {}
+type CNodeJSON struct{}
 
 func (CNodeJSON) match(reader io.Reader) ([]*Result, error) {
 	resp, err := ioutil.ReadAll(reader)
@@ -38,11 +38,11 @@ func (CNodeJSON) match(reader io.Reader) ([]*Result, error) {
 	ret := make([]*Result, 0)
 
 	for _, topic := range cnodeResp.Data {
-		if time.Since(topic.CreateAt).Nanoseconds() - time.Hour.Nanoseconds() * 24 * dayLimit > 0 {
+		if time.Since(topic.CreateAt).Nanoseconds()-time.Hour.Nanoseconds()*24*dayLimit > 0 {
 			continue
 		}
 
-		ret = append(ret, &Result{title: topic.Title, email: emailRe.FindString(topic.Content), content:topic.Content})
+		ret = append(ret, &Result{title: topic.Title, email: emailRe.FindString(topic.Content), content: topic.Content})
 	}
 
 	return ret, nil

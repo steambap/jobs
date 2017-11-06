@@ -1,12 +1,12 @@
 package main
 
 import (
-	"io"
 	"github.com/PuerkitoBio/goquery"
+	"io"
 	"time"
 )
 
-type StudyGolangHTML struct {}
+type StudyGolangHTML struct{}
 
 func (StudyGolangHTML) match(reader io.Reader) ([]*Result, error) {
 	doc, err := goquery.NewDocumentFromReader(reader)
@@ -23,13 +23,13 @@ func (StudyGolangHTML) match(reader io.Reader) ([]*Result, error) {
 		if err != nil {
 			return
 		}
-		if time.Since(t).Nanoseconds() - time.Hour.Nanoseconds() * 24 * dayLimit > 0 {
+		if time.Since(t).Nanoseconds()-time.Hour.Nanoseconds()*24*dayLimit > 0 {
 			return
 		}
 
 		link := selection.Find(".title a")
 
-		ret = append(ret, &Result{title: link.Text(), email: "", content:link.AttrOr("href", "")})
+		ret = append(ret, &Result{title: link.Text(), email: "", content: link.AttrOr("href", "")})
 	})
 
 	return ret, nil

@@ -1,14 +1,15 @@
 package main
 
 import (
-	"log"
-	"sync"
-	"net/http"
 	"fmt"
+	"log"
+	"net/http"
 	"regexp"
+	"sync"
 )
 
 const dayLimit = 1
+
 var matchers = make(map[string]Matcher)
 var sites = make([]Site, 0)
 var emailRe = regexp.MustCompile(`[\w._]+@\w+\.\w+`)
@@ -18,8 +19,8 @@ func init() {
 	matchers["cnode/json"] = CNodeJSON{}
 	matchers["studygolang/html"] = StudyGolangHTML{}
 
-	sites = append(sites, Site{url: "https://cnodejs.org/api/v1/topics?tab=job", resType:"cnode/json"})
-	sites = append(sites, Site{url: "https://studygolang.com/go/jobs", resType:"studygolang/html"})
+	sites = append(sites, Site{url: "https://cnodejs.org/api/v1/topics?tab=job", resType: "cnode/json"})
+	sites = append(sites, Site{url: "https://studygolang.com/go/jobs", resType: "studygolang/html"})
 }
 
 func main() {
@@ -52,7 +53,7 @@ func main() {
 	display(results)
 }
 
-func doMatch(matcher Matcher, url string, results chan<-*Result) error {
+func doMatch(matcher Matcher, url string, results chan<- *Result) error {
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
@@ -67,13 +68,13 @@ func doMatch(matcher Matcher, url string, results chan<-*Result) error {
 	}
 
 	for _, result := range searchResults {
-		results<-result
+		results <- result
 	}
 
 	return nil
 }
 
-func display(results chan*Result) {
+func display(results chan *Result) {
 	for result := range results {
 		var shorten string
 		if len(result.content) > 140 {
