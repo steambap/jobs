@@ -16,8 +16,10 @@ var emailRe = regexp.MustCompile(`[\w._]+@\w+\.\w+`)
 func init() {
 	matchers["default"] = DefaultMatcher{}
 	matchers["cnode/json"] = CNodeJSON{}
+	matchers["studygolang/html"] = StudyGolangHTML{}
 
 	sites = append(sites, Site{url: "https://cnodejs.org/api/v1/topics?tab=job", resType:"cnode/json"})
+	sites = append(sites, Site{url: "https://studygolang.com/go/jobs", resType:"studygolang/html"})
 }
 
 func main() {
@@ -73,8 +75,14 @@ func doMatch(matcher Matcher, url string, results chan<-*Result) error {
 
 func display(results chan*Result) {
 	for result := range results {
-		s := []rune(result.content)
-		shorten := string(s[0:140])
+		var shorten string
+		if len(result.content) > 140 {
+			s := []rune(result.content)
+			shorten = string(s[0:140])
+		} else {
+			shorten = result.content
+		}
+
 		log.Printf("标题：%s\n邮箱：%s\n正文：%s\n\n", result.title, result.email, shorten)
 	}
 }
