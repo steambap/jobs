@@ -15,6 +15,17 @@
 
 克隆这个项目，或者直接下载代码。
 
-对于所有的 JS 的脚本，你需要创建一个 .env 文件，然后在里面写上自己的拉勾或智联等网站的用户名和密码，再然后`yarn`拉依赖，就可以直接用 node 运行，比如 `node lagou` 就可以。
+对于所有的 JS 的脚本，你需要创建一个 .env 文件，然后在里面写上自己的拉勾或智联等网站的用户名和密码：
+- lagou_name 拉勾用户名
+- lagou_pass 拉勾密码
+- lagou_key  拉勾职位关键字
+- lagou_city 拉勾城市
+- o100_name  100offer用户名
+- o100_pass  100offer密码
+- zhilian_name 智联用户名
+- zhilian_pass 智联密码
+
+再然后`yarn`拉依赖，就可以直接用 node 运行，比如 `node lagou` 就可以。
+
 
 对于 Golang 代码，你需要安装 Golang，直接`go build`，然后运行生成的可执行文件就可以。

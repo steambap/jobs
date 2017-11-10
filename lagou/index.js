@@ -27,8 +27,10 @@ const main = async () => {
 	await page.waitForNavigation();
 	// 直接跳转
 	await page.goto(
-		`https://www.lagou.com/jobs/list_${escape('web前端')}?px=new&city=${escape(
-			'天津'
+		`https://www.lagou.com/jobs/list_${escape(
+			process.env.lagou_key
+		)}?px=new&city=${escape(
+			process.env.lagou_city
 		)}#order`
 	);
 
