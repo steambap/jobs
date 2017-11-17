@@ -26,6 +26,6 @@
 - zhilian_pass 智联密码
 
 再然后`yarn`拉依赖，就可以直接用 node 运行，比如 `node lagou` 就可以。
-
+（部分用户需要根据情况调整 executablePath 选项，详见[说明](lagou/README.md)）
 
 对于 Golang 代码，你需要安装 Golang，直接`go build`，然后运行生成的可执行文件就可以。
